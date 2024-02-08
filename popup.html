@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Code Saver</title>
-  <script src="popup.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XDetector</title>
+    <!-- Include Bootstrap and jQuery locally -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="popup.js"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        #banner {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        #saveCodeBtn {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #saveCodeBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-  <button id="saveCodeBtn">Save Code</button>
+    <div id="banner">
+        <h1>XDetector</h1>
+        <p>Your safeguard against adult content</p>
+        <p>Designed by Timothee Katende | Email: kamatekatende@gmail.com</p>
+    </div>
+
+    <button id="saveCodeBtn">Check content</button>
 </body>
 </html>
