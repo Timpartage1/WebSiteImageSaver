@@ -1,11 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Code Saver",
+    "name": "XDetector",
     "version": "1.0",
-    "description": "Save the source code of the active tab locally.",
-    "permissions": ["activeTab", "storage","scripting","downloads","*://*/*",{
-        "fileSystem": ["write"]
-    }],
+    "description": "Your safeguard against adult content.",
+    "permissions": ["activeTab", "storage","scripting","downloads","notifications"],
     "background": {
       "service_worker": "background.js"
     },
