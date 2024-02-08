@@ -10,8 +10,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         savedCode = String(sourceCodeString);
         console.log("Saved source code:", savedCode);
 
-        // Trigger download
-        downloadCode(savedCode);
+        // Check for adult content or content restricted to age under 18
+        const contentRestrictedPattern = /(?:porn|adult content|age\s*restricted\s*18)/i;
+        if (contentRestrictedPattern.test(savedCode)) {
+            // Send a notification
+            sendNotification("Site contains adult content or is age-restricted.");
+        } else {
+            // Send a notification when no adult content is found
+            sendNotification("No adult content found in the site content.");
+        }
 
         // You can perform additional processing or saving logic here
     }
@@ -35,5 +42,15 @@ function downloadCode(code) {
         } else {
             console.log("Download successful. Download ID:", downloadId);
         }
+    });
+}
+
+function sendNotification(message) {
+    // Use chrome.notifications API to send a notification
+    chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'images/fortify16.png',
+        title: 'Notification Title',
+        message: message
     });
 }
