@@ -12,13 +12,30 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
         // Check for adult content or content restricted to age under 18
         const contentRestrictedPattern = /(?:porn|adult content|age\s*restricted\s*18)/i;
-        if (contentRestrictedPattern.test(savedCode)) {
-            // Send a notification
-            sendNotification("Site contains adult content or is age-restricted.");
-        } else {
-            // Send a notification when no adult content is found
-            sendNotification("No adult content found in the site content.");
-        }
+
+         // Get the current tab's URL
+         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            const currentTabUrl = tabs[0]?.url || ""; // Get the URL or an empty string if not available
+
+            if (contentRestrictedPattern.test(savedCode)) {
+                // Send a notification
+                sendNotification("Site contains adult content or is age-restricted.");
+                blockSiteAccess(currentTabUrl);
+            } else {
+                // Send a notification when no adult content is found
+                sendNotification("No adult content found in the site content.");
+            }
+        });
+
+        // const url="http://fb.com";
+        // if (contentRestrictedPattern.test(savedCode)) {
+        //     // Send a notification
+        //     sendNotification("Site contains adult content or is age-restricted.");
+        //     blockSiteAccess(url);
+        // } else {
+        //     // Send a notification when no adult content is found
+        //     sendNotification("No adult content found in the site content.");
+        // }
 
         // You can perform additional processing or saving logic here
     }
@@ -54,3 +71,21 @@ function sendNotification(message) {
         message: message
     });
 }
+
+function blockSiteAccess(url) {
+    // Fetch the list of blocked URLs from storage
+    chrome.storage.sync.get({ blockedUrls: [] }, (result) => {
+      const blockedUrls = result.blockedUrls || [];
+  
+      // Add the new URL to the blocked list if not already present
+      if (!blockedUrls.includes(url)) {
+        blockedUrls.push(url);
+  
+        // Update the blocked list in storage
+        chrome.storage.sync.set({ blockedUrls: blockedUrls }, () => {
+          console.log(`Site access blocked for URL: ${url}`);
+        });
+      }
+    });
+  }
+  

@@ -3,7 +3,7 @@
     "name": "XDetector",
     "version": "1.0",
     "description": "Your safeguard against adult content.",
-    "permissions": ["activeTab", "storage","scripting","downloads","notifications"],
+    "permissions": ["activeTab", "storage","scripting","downloads","notifications","webRequest","webNavigation"],
     "background": {
       "service_worker": "background.js"
     },
@@ -11,6 +11,12 @@
       {
         "matches": ["<all_urls>"],
         "js": ["content.js"]
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["images/*"],
+        "matches": ["<all_urls>"]
       }
     ],
     "action": {
